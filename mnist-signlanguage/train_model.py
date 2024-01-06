@@ -9,7 +9,6 @@ import logging
 from models.model import Net
 
 
-
 # Model Hyperparameters
 dataset_path = "datasets"
 cuda = True
@@ -20,6 +19,19 @@ hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
 epochs = 20
+
+# project name
+wandb.init(
+    project = "...",
+    
+    # track hyperparameters and run metadata - track more
+    config = {
+        "learning_rate": lr,
+        "architecture": "VAE",
+        "dataset": "MNIST",
+        "epochs": epochs
+    }
+)
 
 train_dataset = ...
 test_dataset = ...
