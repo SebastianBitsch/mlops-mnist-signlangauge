@@ -6,7 +6,7 @@
 
 PROJECT_NAME = mnist-signlanguage
 PYTHON_VERSION = 3.10
-PYTHON_INTERPRETER = python
+PYTHON_INTERPRETER = python3
 
 #################################################################################
 # COMMANDS                                                                      #
@@ -55,8 +55,11 @@ clean:
 #################################################################################
 
 ## Process raw data into processed data
-data:
-	python $(PROJECT_NAME)/data/make_dataset.py
+download_data:
+	dvc pull
+
+data: download_data
+	python3 $(PROJECT_NAME)/data/make_dataset.py
 
 #################################################################################
 # Documentation RULES                                                           #
