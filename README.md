@@ -1,4 +1,4 @@
-# mnist_signlanguage group 52
+# mnist-signlanguage group 52
 
 A mlops pipeline for doing classification of american sign language letters
 
@@ -37,7 +37,7 @@ The directory structure of the project looks like this:
 │
 ├── tests                <- Test files
 │
-├── mnist_signlanguage  <- Source code for use in this project.
+├── mnist-signlanguage  <- Source code for use in this project.
 │   │
 │   ├── __init__.py      <- Makes folder a Python module
 │   │
@@ -86,6 +86,9 @@ We expect to use a convolutional neural network (CNN) to classify the images. Fo
 3. Then you can install the requirements with the following make command:
     ```make requirements```
 
+    For development purposes, you can install the requirements_dev.txt file with the following command:
+    ```make dev_requirements```
+
 WARNING: If you want to use torch with an NVIDIA GPU, you need to use one of the following command depending on your CUDA version:
 
 for CUDA 11.8:
@@ -93,6 +96,9 @@ for CUDA 11.8:
 
 For CUDA 12.1:
     ```make requirements_gpu_cu121```
+
+4. Now you can run the code with the following command:
+    ```make ```
 
 ### Prerequisites
 
