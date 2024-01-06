@@ -15,7 +15,7 @@ PYTHON_INTERPRETER = python
 ## Set up python interpreter environment
 ## create .env file for environment variables
 create_environment:
-	$(PYTHON_VERSION) -m venv .venv
+	$(PYTHON_INTERPRETER) -m venv .venv
 	type nul > .env 
 	
 	
