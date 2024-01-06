@@ -26,6 +26,18 @@ requirements:
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 	$(PYTHON_INTERPRETER) -m pip install -e .
 
+requirements_gpu_cu118:
+	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+	$(PYTHON_INTERPRETER) -m pip install -e .
+	$(PYTHON_INTERPRETER) -m pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+requirements_gpu_cu121:
+	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+	$(PYTHON_INTERPRETER) -m pip install -e .
+	$(PYTHON_INTERPRETER) -m pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
 ## Install Developer Python Dependencies
 dev_requirements: requirements
 	$(PYTHON_INTERPRETER) -m pip install .["dev"]
