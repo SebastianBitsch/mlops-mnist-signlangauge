@@ -4,7 +4,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = mnist-signlanguage
+PROJECT_NAME = mnist_signlanguage
 PYTHON_VERSION = 3.10
 PYTHON_INTERPRETER = python3
 

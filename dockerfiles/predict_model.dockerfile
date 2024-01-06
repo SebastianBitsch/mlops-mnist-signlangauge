@@ -7,11 +7,11 @@ RUN apt update && \
 
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
-COPY mnist-signlanguage/ mnist-signlanguage/
+COPY mnist_signlanguage/ mnist_signlanguage/
 COPY data/ data/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "mnist-signlanguage/predict_model.py"]
+ENTRYPOINT ["python", "-u", "mnist_signlanguage/predict_model.py"]

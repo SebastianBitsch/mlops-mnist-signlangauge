@@ -1,4 +1,4 @@
 ## Documentation
 
-Documentation for mnist-signlanguage
+Documentation for mnist_signlanguage
 
