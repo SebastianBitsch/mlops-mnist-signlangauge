@@ -78,6 +78,21 @@ We expect to use a convolutional neural network (CNN) to classify the images. Fo
 
 
 ## Getting started
+1. First setup the virtual environment with
+```make create_environment```
+
+2. Activate and enter the virtual environment
+
+3. Then you can install the requirements with the following make command:
+    ```make requirements```
+
+WARNING: If you want to use torch with an NVIDIA GPU, you need to use one of the following command depending on your CUDA version:
+
+for CUDA 11.8:
+    ```make requirements_gpu_cu118```
+
+For CUDA 12.1:
+    ```make requirements_gpu_cu121```
 
 ### Prerequisites
 
@@ -88,14 +103,4 @@ We expect to use a convolutional neural network (CNN) to classify the images. Fo
 
 ### Requirements
 
-You can install the requirements with the following make command:
-    ```make requirements```
-
-WARNING: If you want to use torch with an NVIDIA GPU, you need to use one of the following command depending on your CUDA version:
-
-for CUDA 11.8:
-    ```make requirements_gpu_cu118```
-
-For CUDA 12.1:
-    ```make requirements_gpu_cu121```
 
