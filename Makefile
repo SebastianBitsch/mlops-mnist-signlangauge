@@ -13,8 +13,12 @@ PYTHON_INTERPRETER = python
 #################################################################################
 
 ## Set up python interpreter environment
+## create .env file for environment variables
 create_environment:
-	conda create --name $(PROJECT_NAME) python=$(PYTHON_VERSION) --no-default-packages -y
+	$(PYTHON_VERSION) -m venv .venv
+	type nul > .env 
+	
+	
 
 ## Install Python Dependencies
 requirements:
