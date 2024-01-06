@@ -29,17 +29,17 @@ requirements:
 ## Install Python Dependencies for GPU CUDA 11.8
 requirements_gpu_cu118:
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-	$(PYTHON_INTERPRETER) -m pip install -e .
+	$(PYTHON_INTERPRETER) -m pip install -r requirements_gpu.txt
 	$(PYTHON_INTERPRETER) -m pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+	$(PYTHON_INTERPRETER) -m pip install -e .
 
 ## Install Python Dependencies for GPU CUDA 12.1
 requirements_gpu_cu121:
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-	$(PYTHON_INTERPRETER) -m pip install -e .
+	$(PYTHON_INTERPRETER) -m pip install -r requirements_gpu.txt
 	$(PYTHON_INTERPRETER) -m pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-
+	$(PYTHON_INTERPRETER) -m pip install -e .
+	
 ## Install Developer Python Dependencies
 dev_requirements: requirements
 	$(PYTHON_INTERPRETER) -m pip install .["dev"]
