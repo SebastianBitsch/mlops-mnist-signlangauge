@@ -1,3 +1,50 @@
+import pandas as pd
+import torch
+
+
+def process_and_save_data(csv_file_path, labels_file_path, images_tensor_file_path):
+    # Read the CSV file
+    df = pd.read_csv(csv_file_path)
+
+    # Extract labels and image data
+    labels = df['label'].values
+    images = df.drop('label', axis=1).values
+    images = images.reshape(-1, 28, 28)  # Reshape to 28x28 images
+    images_tensor = torch.tensor(images, dtype=torch.float32)
+
+    # Save labels to a text file
+    with open(labels_file_path, 'w') as f:
+        for label in labels:
+            f.write(f"{label}\n")
+
+    # Save images as tensors in a .pt file
+    torch.save(images_tensor, images_tensor_file_path)
+
+
 if __name__ == '__main__':
-    # Get the data and process it
+    # File paths for the training and test datasets
+    # Update with your train CSV file path
+    train_file_path = 'data/raw/archive-2/sign_mnist_train/sign_mnist_train.csv'
+    # Update with your test CSV file path
+    test_file_path = 'data/raw/archive-2/sign_mnist_test/sign_mnist_test.csv'
+
+    # File paths for output for training data
+    # Update with output path for train labels
+    train_labels_file = 'data/processed/train/train_labels.txt'
+    # Update with output path for train image tensors
+    train_images_tensor_file = 'data/processed/train/train_images.pt'
+
+    # Process and save training data
+    process_and_save_data(
+        train_file_path, train_labels_file, train_images_tensor_file)
+
+    # File paths for output for test data
+    # Update with output path for test labels
+    test_labels_file = 'data/processed/test/test_labels.txt'
+    # Update with output path for test image tensors
+    test_images_tensor_file = 'data/processed/test/test_images.pt'
+
+    # Process and save test data
+    process_and_save_data(test_file_path, test_labels_file,
+                          test_images_tensor_file)
     pass
