@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mnist-signlanguage"
+name = "mnist_signlanguage"
 version = "0.0.1"
 description = "A mlops pipeline for doing classification of american sign language letters"
 authors = [

@@ -1,2 +1,2 @@
-from mnist-signlanguage.models.model import MyNeuralNet
-from mnist-signlanguage.predict_model import predict
+from mnist_signlanguage.models.model import Net
+from mnist_signlanguage.predict_model import predict

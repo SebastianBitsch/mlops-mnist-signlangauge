@@ -1,4 +1,4 @@
-# mnist-signlanguage group 52
+# mnist_signlanguage group 52
 
 A mlops pipeline for doing classification of american sign language letters
 
@@ -37,7 +37,7 @@ The directory structure of the project looks like this:
 │
 ├── tests                <- Test files
 │
-├── mnist-signlanguage  <- Source code for use in this project.
+├── mnist_signlanguage  <- Source code for use in this project.
 │   │
 │   ├── __init__.py      <- Makes folder a Python module
 │   │
