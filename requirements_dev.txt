@@ -21,3 +21,4 @@ mkdocstrings[python]>=0.18
 # dvc
 dvc
 dvc_gdrive
+hydra-core

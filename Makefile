@@ -55,7 +55,7 @@ clean:
 
 ## Process raw data into processed data
 download_data:
-	dvc pull
+	dvc pull --verbose
 
 data: download_data
 	python3 $(PROJECT_NAME)/data/make_dataset.py
