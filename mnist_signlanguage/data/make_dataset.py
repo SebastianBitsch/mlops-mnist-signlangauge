@@ -24,9 +24,9 @@ def process_and_save_data(csv_file_path, labels_file_path, images_tensor_file_pa
 if __name__ == '__main__':
     # File paths for the training and test datasets
     # Update with your train CSV file path
-    train_file_path = 'data/raw/archive-2/sign_mnist_train/sign_mnist_train.csv'
+    train_file_path = 'data/raw/sign_mnist_train/sign_mnist_train.csv'
     # Update with your test CSV file path
-    test_file_path = 'data/raw/archive-2/sign_mnist_test/sign_mnist_test.csv'
+    test_file_path = 'data/raw/sign_mnist_test/sign_mnist_test.csv'
 
     # File paths for output for training data
     # Update with output path for train labels
