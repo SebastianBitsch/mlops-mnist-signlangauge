@@ -1,4 +1,4 @@
-.PHONY: create_environment requirements dev_requirements clean data build_documentation serve_documentation
+.PHONY: create_environment requirements dev_requirements clean data build_documentation serve_documentation download_data
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -55,7 +55,7 @@ clean:
 
 ## Process raw data into processed data
 download_data:
-	dvc pull
+	dvc pull --force
 
 data: download_data
 	python3 $(PROJECT_NAME)/data/make_dataset.py

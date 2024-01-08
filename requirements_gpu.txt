@@ -16,5 +16,4 @@ mkdocstrings>=0.23.0
 mkdocstrings-python>=1.7.5
 networkx>=3.2.1
 numpy
-pillow
 pandas
