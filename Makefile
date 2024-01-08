@@ -16,7 +16,6 @@ PYTHON_INTERPRETER = python3
 ## create .env file for environment variables
 create_environment:
 	$(PYTHON_INTERPRETER) -m venv .venv
-	type nul > .env 
 	
 	
 
