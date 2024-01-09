@@ -178,4 +178,5 @@ cython_debug/
 
 # Data folders
 data/
-.dvc/
+.dvc/cache/
+.dvc/tmp/
