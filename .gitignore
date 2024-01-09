@@ -177,4 +177,5 @@ cython_debug/
 #.idea/
 
 # Data folders
-/data
+data/
+.dvc/
