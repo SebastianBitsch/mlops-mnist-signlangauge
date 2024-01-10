@@ -20,6 +20,32 @@ def process_and_save_data(csv_file_path, labels_file_path, images_tensor_file_pa
     # Save images as tensors in a .pt file
     torch.save(images_tensor, images_tensor_file_path)
 
+def fetch_dataloader(cfg):
+    DATADIR = cfg.dir
+    BATCH_SIZE = cfg.batch_size
+
+
+
+    img_path_train = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/train_images_0.pt' 
+    label_path_train = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/train_target_0.pt'
+    img_path_test = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/test_images.pt'
+    label_path_test = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/test_target.pt'
+
+    data_train = torch.load(imgPathTrain)
+    labels_train = torch.load(labelPathTrain)
+    data_test = torch.load(imgPathTest)
+    labels_test = torch.load(labelPathTest)
+    
+
+    train_tataset = [[x, y] for x, y in zip(dataTrain, labelsTrain)]
+    test_Tataset = [[x, y] for x, y in zip(dataTest, labelsTest)]
+
+
+    train = DataLoader(trainDataset, batch_size=64, shuffle=True)
+    test = DataLoader(testDataset, batch_size=64, shuffle=True)
+
+
+    return train, test
 
 if __name__ == '__main__':
     # File paths for the training and test datasets
