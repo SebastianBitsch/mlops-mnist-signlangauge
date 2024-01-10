@@ -1,0 +1,16 @@
+base:
+   seed: 42
+   device: "cuda"
+
+
+data_fetch:
+    dir: "data/processed"
+    batch_size: 64
+
+model_params:
+    dir: "models/"
+
+hyperparams:
+    lr: 0.001
+    epochs: 10
+    momentum: 0.9

@@ -32,7 +32,7 @@ model = Net().to(DEVICE)
 loss_fn = nn.BCELoss()
 optimizer = Adam(model.parameters(), lr=lr)
 
-wandb.watch(model, log_freq=100)
+#wandb.watch(model, log_freq=100)
 
 
 for epoch in range(epochs):
