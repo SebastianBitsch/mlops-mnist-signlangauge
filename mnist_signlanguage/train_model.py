@@ -10,13 +10,15 @@ import logging
 
 from models.model import Net
 
-@hydra.main(config_path="config", config_name="train_model.yaml")
+@hydra.main(config_path="config", config_name="train_model.yaml",version_base='1.3')
 def train(cfg):
     """ 
     Train the model 
     
     Return: none
     """
+    print("Training the model")
+
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     LR = cfg.hyperparams.lr
     model = Net().to(DEVICE)
@@ -25,6 +27,7 @@ def train(cfg):
     criterion = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=LR)
     epoch = 5
+    print("Start training")
     for epoch in range(epoch):
         running_loss = 0
         for batch_idx, (images, labels) in enumerate(train_set):
@@ -44,6 +47,8 @@ def train(cfg):
         else:
             print(f"Training loss: {running_loss}")
 
+if __name__ == '__main__':
+    train()
 
 
     

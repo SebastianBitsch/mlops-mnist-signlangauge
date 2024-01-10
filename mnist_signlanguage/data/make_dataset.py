@@ -28,9 +28,9 @@ def fetch_dataloader(cfg):
 
 
     img_path_train = cfg.train_data_path
-    label_path_train = cfg.train_label_path
+    label_path_train = cfg.train_labels_path
     img_path_test = cfg.test_data_path
-    label_path_test = cfg.test_label_path
+    label_path_test = cfg.test_labels_path
 
     data_train = torch.load(img_path_train)
     labels_train = []
