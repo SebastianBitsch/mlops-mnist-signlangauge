@@ -1,5 +1,6 @@
 import pandas as pd
 import torch
+from torch.utils.data import DataLoader
 
 
 def process_and_save_data(csv_file_path, labels_file_path, images_tensor_file_path):
@@ -26,23 +27,32 @@ def fetch_dataloader(cfg):
 
 
 
-    img_path_train = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/train_images_0.pt' 
-    label_path_train = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/train_target_0.pt'
-    img_path_test = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/test_images.pt'
-    label_path_test = 'C:/Programmering/mlo_project_indiv/project1/data/corruptmnist/test_target.pt'
+    img_path_train = cfg.train_data_path
+    label_path_train = cfg.train_label_path
+    img_path_test = cfg.test_data_path
+    label_path_test = cfg.test_label_path
 
-    data_train = torch.load(imgPathTrain)
-    labels_train = torch.load(labelPathTrain)
-    data_test = torch.load(imgPathTest)
-    labels_test = torch.load(labelPathTest)
+    data_train = torch.load(img_path_train)
+    labels_train = []
+    with open(label_path_train, 'r') as f:
+        for line in f:
+            labels_train.append(int(line.strip()))
+    data_test = torch.load(img_path_test)
+    labels_test = []
+    with open(label_path_test, 'r') as f:
+        for line in f:
+            labels_test.append(int(line.strip()))
+
+    label_train = torch.tensor(labels_train)
+    label_test = torch.tensor(labels_test)
+
     
+    train_dataset = [[x, y] for x, y in zip(data_train, labels_train)]
+    test_dataset = [[x, y] for x, y in zip(data_test, labels_test)]
 
-    train_tataset = [[x, y] for x, y in zip(dataTrain, labelsTrain)]
-    test_Tataset = [[x, y] for x, y in zip(dataTest, labelsTest)]
 
-
-    train = DataLoader(trainDataset, batch_size=64, shuffle=True)
-    test = DataLoader(testDataset, batch_size=64, shuffle=True)
+    train = DataLoader(train_dataset, batch_size=64, shuffle=True)
+    test = DataLoader(test_dataset, batch_size=64, shuffle=True)
 
 
     return train, test

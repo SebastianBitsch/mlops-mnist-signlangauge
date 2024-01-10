@@ -49,7 +49,7 @@ clean:
 	find . -type d -name "__pycache__" -delete
 
 train:
-    $(PYTHON_INTERPRETER) $(PROJECT_NAME)/train_model.py hydra.job.chdir=False
+	$(PYTHON_INTERPRETER) $(PROJECT_NAME)/train_model.py hydra.job.chdir=False
 
 
 #################################################################################

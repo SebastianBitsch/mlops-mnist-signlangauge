@@ -23,7 +23,7 @@ def train(cfg):
     model.train()
     train_set, _ = fetch_dataloader(cfg.data_fetch)
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    optimizer = Adam(model.parameters(), lr=LR)
     epoch = 5
     for epoch in range(epoch):
         running_loss = 0
