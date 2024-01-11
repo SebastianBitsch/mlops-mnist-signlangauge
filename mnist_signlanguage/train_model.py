@@ -26,6 +26,7 @@ def train(cfg) -> None:
     criterion = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=cfg.hyperparams.lr)
 
+    wandb.login()
     wandb.init(
         project = "mlops-mnist-sign-language",
         entity = "mlops-mnist",
