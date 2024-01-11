@@ -182,3 +182,4 @@ data/
 .dvc/tmp/
 
 outputs/
+wandb/
