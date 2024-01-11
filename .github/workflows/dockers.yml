@@ -6,7 +6,12 @@ on:
 
 jobs:
     build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
