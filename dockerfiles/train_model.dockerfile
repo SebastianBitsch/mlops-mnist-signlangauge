@@ -1,9 +1,16 @@
 # Base image
 FROM python:3.10-slim
 
+
+
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
