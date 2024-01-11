@@ -85,6 +85,15 @@ serve_documentation: dev_requirements
 
 .DEFAULT_GOAL := help
 
+#################################################################################
+# Coverage                                                                      #
+#################################################################################
+coverage:
+	$(PYTHON_INTERPRETER) -m pip install coverage
+	coverage run -m pytest
+	coverage report -m
+	coverage html
+
 # Inspired by <http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html>
 # sed script explained:
 # /^##/:
