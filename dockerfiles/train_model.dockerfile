@@ -12,6 +12,7 @@ COPY mnist_signlanguage/ mnist_signlanguage/
 WORKDIR /
 RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
-RUN make data
+RUN dvc pull --force
+RUN python3 mnist_signlanguage/data/make_dataset.py
 
 ENTRYPOINT ["python", "-u", "mnist_signlanguage/train_model.py", "hydra.job.chdir=False"]
