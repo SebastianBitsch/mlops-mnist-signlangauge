@@ -58,6 +58,8 @@ def fetch_dataloader(cfg):
     return train, test
 
 if __name__ == '__main__':
+    import os
+    print(os.getcwd())
     # File paths for the training and test datasets
     # Update with your train CSV file path
     train_file_path = 'data/raw/sign_mnist_train/sign_mnist_train.csv'
