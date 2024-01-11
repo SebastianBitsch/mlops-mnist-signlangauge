@@ -11,7 +11,9 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-
+COPY .dvc/ .dvc/
+COPY data.dvc data.dvc
+COPY Makefile Makefile
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY mnist_signlanguage/ mnist_signlanguage/
