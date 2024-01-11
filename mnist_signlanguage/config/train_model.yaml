@@ -1,7 +1,7 @@
 base:
    seed: 42
    device: "cuda"
-
+   log_interval: 50
 
 data_fetch:
     dir: "data/processed"
@@ -16,5 +16,4 @@ model_params:
 
 hyperparams:
     lr: 0.001
-    epochs: 10
-    momentum: 0.9
+    epochs: 40

@@ -21,39 +21,29 @@ def process_and_save_data(csv_file_path, labels_file_path, images_tensor_file_pa
     # Save images as tensors in a .pt file
     torch.save(images_tensor, images_tensor_file_path)
 
-def fetch_dataloader(cfg):
-    DATADIR = cfg.dir
-    BATCH_SIZE = cfg.batch_size
-
-
-
+def fetch_dataloader(cfg: dict, device: str) -> tuple[DataLoader, DataLoader]:
+    """ Create a train and test dataloader using a config file """
     img_path_train = cfg.train_data_path
     label_path_train = cfg.train_labels_path
     img_path_test = cfg.test_data_path
     label_path_test = cfg.test_labels_path
 
-    data_train = torch.load(img_path_train)
+    data_train = torch.load(img_path_train).to(device)
     labels_train = []
     with open(label_path_train, 'r') as f:
         for line in f:
             labels_train.append(int(line.strip()))
-    data_test = torch.load(img_path_test)
+    data_test = torch.load(img_path_test).to(device)
     labels_test = []
     with open(label_path_test, 'r') as f:
         for line in f:
             labels_test.append(int(line.strip()))
 
-    label_train = torch.tensor(labels_train)
-    label_test = torch.tensor(labels_test)
+    train_dataset = [(x, y) for x, y in zip(data_train, torch.tensor(labels_train, device=device))]
+    test_dataset = [(x, y) for x, y in zip(data_test, torch.tensor(labels_test, device=device))]
 
-    
-    train_dataset = [[x, y] for x, y in zip(data_train, labels_train)]
-    test_dataset = [[x, y] for x, y in zip(data_test, labels_test)]
-
-
-    train = DataLoader(train_dataset, batch_size=64, shuffle=True)
-    test = DataLoader(test_dataset, batch_size=64, shuffle=True)
-
+    train = DataLoader(train_dataset, batch_size=cfg.batch_size, shuffle=True)
+    test = DataLoader(test_dataset, batch_size=cfg.batch_size, shuffle=False)
 
     return train, test
 
@@ -83,4 +73,3 @@ if __name__ == '__main__':
     # Process and save test data
     process_and_save_data(test_file_path, test_labels_file,
                           test_images_tensor_file)
-    pass

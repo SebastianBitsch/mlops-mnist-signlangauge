@@ -1,31 +1,44 @@
-import torch
 import torch.nn as nn
 
 class Net(nn.Module):
     """
-    Simple net 
+    Simple CNN network for doing classification on 24 classes
     """
 
-    def __init__(self):
-        super().__init__()
-        # self.conv1 = nn.Conv2d(3, 6, 5)
-        # self.pool = nn.MaxPool2d(2, 2)
-        # self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(28*28, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 25)
+    def __init__(self, in_features: int = 1, n_classes: int = 24):
+        """
+        A small network for doing classification   
+        The architecture of the network is adapted from: https://www.kaggle.com/code/lightyagami26/mnist-sign-language-cnn-99-40-accuracy
+        """
+        super(Net, self).__init__()
 
-        self.relu = nn.ReLU()
-        self.softmax = nn.Softmax(dim=1)
+        self.n_classes = n_classes
+
+        self.conv_block = nn.Sequential(
+            nn.Conv2d(in_features, 128, kernel_size=5, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=3, stride=2),
+            nn.Conv2d(128, 64, kernel_size=3, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(64, 32, kernel_size=2, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Flatten() # out: [batch, 32]
+        )
+        self.dense_block = nn.Sequential(
+            nn.Linear(in_features=32, out_features=512),
+            nn.ReLU(),
+            nn.Linear(in_features=512, out_features=n_classes)
+        )
 
     def forward(self, x):
         """ Forward pass """
-        x = torch.flatten(x, 1) # flatten all dimensions except batch
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.relu(self.fc3(x))
-
-        #Softmax output
-        x = self.softmax(self.fc4(x))
+        if (len(x.shape) == 3):
+            x = x.unsqueeze(1) # in: [batch_size, 28, 28] -> out: [batch_size, 1, 28, 28]
+        x = self.conv_block(x)
+        x = self.dense_block(x)
         return x
+    
+if __name__ == "__main__":
+    model = Net()
