@@ -4,6 +4,7 @@ import torch.nn as nn
 import hydra
 import wandb
 import logging
+import sys
 
 from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
@@ -15,6 +16,10 @@ def train(cfg) -> None:
     """ 
     Train the model 
     """
+
+    # Create super basic logger
+    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
 
     device_name = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     DEVICE = torch.device(device_name)
@@ -40,7 +45,7 @@ def train(cfg) -> None:
         # mode="disabled" # disable wandb when debugging
     )
 
-    print("Start training")
+    logger.info("Start training")
     for epoch in range(cfg.hyperparams.epochs):
         running_train_loss = 0
         last_train_loss = 0
@@ -65,7 +70,7 @@ def train(cfg) -> None:
                 running_train_loss = 0
                 
                 # Log to wandb
-                print(f"epoch: {epoch+1}/{cfg.hyperparams.epochs} | batch: {batch_idx+1}/{len(train_dataloader)} | loss: {last_train_loss}")
+                logger.info(f"epoch: {epoch+1}/{cfg.hyperparams.epochs} | batch: {batch_idx+1}/{len(train_dataloader)} | loss: {last_train_loss}")
                 wandb.log({"train_loss": last_train_loss})
         
         # Start validation
@@ -74,22 +79,25 @@ def train(cfg) -> None:
             correct_predictions = 0
             total_samples = 0
             for batch_idx, (images, labels) in enumerate(validation_dataloader):                
+                
                 preds = model(images)
+                
                 loss = criterion(preds, labels)
                 validation_loss += loss
+                
                 correct_predictions += torch.sum(preds.argmax(dim=1) == labels).item()
                 total_samples += len(labels)
-        
+
         accuracy = correct_predictions / total_samples
 
         # Done training
-        print(f'--- Epoch {epoch+1}/{cfg.hyperparams.epochs} | accuracy: {accuracy} | train loss: {last_train_loss} | val loss: {validation_loss / len(validation_dataloader)} ---\n')
+        logger.info(f'--- Epoch {epoch+1}/{cfg.hyperparams.epochs} | accuracy: {accuracy} | train loss: {last_train_loss} | val loss: {validation_loss / len(validation_dataloader)} ---\n')
         wandb.log({
             "accuracy" : accuracy,
             "validation_loss" : validation_loss / len(validation_dataloader)
         })
 
-    print("Done")
+    logger.info("Done")
     wandb.finish()
 
 if __name__ == '__main__':
