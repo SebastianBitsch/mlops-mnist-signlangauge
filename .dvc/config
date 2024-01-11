@@ -1,7 +1,7 @@
 [core]
     remote = remote_storage
-['remote "storage"']
-    url = gdrive://1o-ADWwpwm666OiubRUARpkPDiH7Jp_Ff
+# ['remote "storage"']
+#     url = gdrive://1o-ADWwpwm666OiubRUARpkPDiH7Jp_Ff
 ['remote "remote_storage"']
     url = gs://my-bucket-sbb/
     version_aware = true
