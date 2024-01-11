@@ -14,9 +14,8 @@ from models.model import Net
 def train(cfg) -> None:
     """ 
     Train the model 
-    
-    Return: none
     """
+
     device_name = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     DEVICE = torch.device(device_name)
 
@@ -36,7 +35,8 @@ def train(cfg) -> None:
             "batch_size": cfg.data_fetch.batch_size,
             "architecture": "CNN",
             "dataset": "American-Sign-Language-MNIST",
-        }
+        },
+        # mode="disabled" # disable wandb when debugging
     )
 
     print("Start training")
@@ -65,7 +65,7 @@ def train(cfg) -> None:
                 
                 # Log to wandb
                 print(f"epoch: {epoch+1}/{cfg.hyperparams.epochs} | batch: {batch_idx+1}/{len(train_dataloader)} | loss: {last_train_loss}")
-                wandb.log({"loss": last_train_loss})
+                wandb.log({"train_loss": last_train_loss})
         
         # Start validation
         model.eval()
@@ -75,6 +75,7 @@ def train(cfg) -> None:
             for batch_idx, (images, labels) in enumerate(validation_dataloader):                
                 preds = model(images)
                 loss = criterion(preds, labels)
+                validation_loss += loss
                 correct_predictions += torch.sum(preds.argmax(dim=1) == labels).item()
                 total_samples += len(labels)
         
@@ -84,7 +85,6 @@ def train(cfg) -> None:
         print(f'--- Epoch {epoch+1}/{cfg.hyperparams.epochs} | accuracy: {accuracy} | train loss: {last_train_loss} | val loss: {validation_loss / len(validation_dataloader)} ---\n')
         wandb.log({
             "accuracy" : accuracy,
-            "train_loss" : last_train_loss, 
             "validation_loss" : validation_loss / len(validation_dataloader)
         })
 

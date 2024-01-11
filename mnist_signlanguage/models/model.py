@@ -9,7 +9,6 @@ class Net(nn.Module):
         """
         A small network for doing classification   
         The architecture of the network is adapted from: https://www.kaggle.com/code/lightyagami26/mnist-sign-language-cnn-99-40-accuracy
-        
         """
         super(Net, self).__init__()
 
@@ -30,8 +29,7 @@ class Net(nn.Module):
         self.dense_block = nn.Sequential(
             nn.Linear(in_features=32, out_features=512),
             nn.ReLU(),
-            nn.Linear(in_features=512, out_features=n_classes),
-            nn.Softmax(dim = 1)
+            nn.Linear(in_features=512, out_features=n_classes)
         )
 
     def forward(self, x):
