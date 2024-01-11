@@ -51,7 +51,11 @@ clean:
 train:
 	$(PYTHON_INTERPRETER) $(PROJECT_NAME)/train_model.py hydra.job.chdir=False
 
+docker_build_train:
+	docker build -f dockerfiles/train_model.dockerfile . -t trainer:latest
 
+docker_run_train:
+	docker run --name trainer_experiment trainer:latest
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
