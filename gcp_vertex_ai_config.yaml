@@ -1,0 +1,8 @@
+# used to build the vertex ai instance
+# config_cpu.yaml
+workerPoolSpecs:
+    machineSpec:
+        machineType: n1-highmem-2
+    replicaCount: 1
+    containerSpec:
+        imageUri: gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcp_train_app
