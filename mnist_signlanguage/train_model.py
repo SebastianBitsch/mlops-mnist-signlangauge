@@ -5,21 +5,11 @@ import hydra
 import wandb
 import logging
 import sys
-import os
-
-from google.cloud import secretmanager
 
 from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
 
 from models.model import Net
-
-def get_secret(project_id: str = "", secret_id: str = "") -> secretmanager.GetSecretRequest:
-    client = secretmanager.SecretManagerServiceClient()
-    response = client.access_secret_version(request={"name": "projects/586103140905/secrets/WANDB_API_KEY/versions/1"})
-    secret = response.payload.data.decode("UTF-8")
-    return secret
-
 
 @hydra.main(config_path="config", config_name="train_model.yaml",version_base='1.3')
 def train(cfg) -> None:
@@ -41,7 +31,7 @@ def train(cfg) -> None:
     criterion = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=cfg.hyperparams.lr)
 
-    os.environ['WANDB_API_KEY'] = get_secret()
+    wandb.login()
     wandb.init(
         project = "mlops-mnist-sign-language",
         entity = "mlops-mnist",
@@ -106,8 +96,6 @@ def train(cfg) -> None:
             "accuracy" : accuracy,
             "validation_loss" : validation_loss / len(validation_dataloader)
         })
-        # torch.save(model.state_dict(), f"models/model_{cfg.base.experiment_name}.pt") # saves locally
-        torch.save(model.state_dict(), f"/gcs/{cfg.data.gcp_bucket_name}/models/model_{cfg.base.experiment_name}.pt") # saves to gcp
 
     logger.info("Done")
     wandb.finish()
