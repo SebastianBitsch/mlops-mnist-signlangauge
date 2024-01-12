@@ -2,6 +2,19 @@
 
 A mlops pipeline for doing classification of american sign language letters
 
+## Project Description
+### Overall goal of the project
+Main goal of this project is to apply material methods from the Machine Learning and Operation course onto a real practical project in order to follow real production ready guidelines, with the subgoal of applying these methods to an image based problem.
+
+### What framework are you going to use and do you intend to include the framework into your project?
+Since we will be working on an image related problem, it is quite evident to make use of the pytorch framework TIMM for computer vision (pytorch image models). We will be importing a model template and fine tune it to our dataset with the main purpose of writing readable, logical and clean code while maintaining a set structure.
+
+### What data are you going to run on (initially, may change)
+We are going to use the mnist sign language dataset from kaggle (https://www.kaggle.com/datasets/datamunge/sign-language-mnist). It includes 25 classes of sign letters (excluding J and Z which require motion). The data is already split in 27,455 images in training data and 7172 images in test data.
+
+### What models do you expect to use
+We expect to use a convolutional neural network (CNN) to classify the images. For this we intend to use the architecture of a small Resnet model, that we train from scratch
+
 ## Project structure
 
 The directory structure of the project looks like this:
@@ -62,18 +75,7 @@ Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
 
-## Project Description
-### Overall goal of the project
-Main goal of this project is to apply material methods from the Machine Learning and Operation course onto a real practical project in order to follow real production ready guidelines, with the subgoal of applying these methods to an image based problem.
 
-### What framework are you going to use and do you intend to include the framework into your project?
-Since we will be working on an image related problem, it is quite evident to make use of the pytorch framework TIMM for computer vision (pytorch image models). We will be importing a model template and fine tune it to our dataset with the main purpose of writing readable, logical and clean code while maintaining a set structure.
-
-### What data are you going to run on (initially, may change)
-We are going to use the mnist sign language dataset from kaggle (https://www.kaggle.com/datasets/datamunge/sign-language-mnist). It includes 25 classes of sign letters (excluding J and Z which require motion). The data is already split in 27,455 images in training data and 7172 images in test data.
-
-### What models do you expect to use
-We expect to use a convolutional neural network (CNN) to classify the images. For this we intend to use the architecture of a small Resnet model, that we train from scratch
 
 
 
