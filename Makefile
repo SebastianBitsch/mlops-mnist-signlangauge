@@ -48,12 +48,15 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
+## Run train on mnist dataset
 train:
 	$(PYTHON_INTERPRETER) $(PROJECT_NAME)/train_model.py hydra.job.chdir=False
 
+## Bulid docker image for training
 docker_build_train:
 	docker build -f dockerfiles/train_model.dockerfile . -t trainer:latest
 
+## Run docker image for training
 docker_run_train:
 	docker run --name trainer_experiment trainer:latest
 #################################################################################
@@ -92,6 +95,7 @@ coverage:
 	$(PYTHON_INTERPRETER) -m pip install coverage
 	coverage run -m pytest
 	coverage report -m
+	# upload coverage report to a html file
 	coverage html
 
 # Inspired by <http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html>

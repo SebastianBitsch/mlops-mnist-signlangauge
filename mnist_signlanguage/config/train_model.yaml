@@ -1,19 +1,25 @@
 base:
-   seed: 42
-   device: "cuda"
-   log_interval: 50
+  experiment_name: default-model
+  seed: 42
+  device: "cuda"
+  log_interval: 50
 
 data_fetch:
-    dir: "data/processed"
-    train_data_path: "data/processed/train/train_images.pt"
-    train_labels_path: "data/processed/train/train_labels.txt"
-    test_data_path: "data/processed/test/test_images.pt"
-    test_labels_path: "data/processed/test/test_labels.txt"
-    batch_size: 64
+  gcp_bucket_name: gs://my-bucket-sbb/
+  dir: "data/processed"
+  # the data paths
+  train_data_path: "data/processed/train/train_images.pt"
+  train_labels_path: "data/processed/train/train_labels.txt"
+  test_data_path: "data/processed/test/test_images.pt"
+  test_labels_path: "data/processed/test/test_labels.txt"
+  # the hyperparameter for the data loader
+  batch_size: 64
 
+# the model path
 model_params:
-    dir: "models/"
+  dir: "models/"
 
+# the hyperparameters for the model
 hyperparams:
-    lr: 0.001
-    epochs: 40
+  lr: 0.001
+  epochs: 1

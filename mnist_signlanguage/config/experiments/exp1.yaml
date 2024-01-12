@@ -1,0 +1,7 @@
+# TODO: Test different configurations, this is a dummy experiment
+base:
+  experiment_name: exp1
+
+# test
+hyperparametes:
+  lr: 0.01
