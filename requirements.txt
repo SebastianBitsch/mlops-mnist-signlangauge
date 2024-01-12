@@ -12,5 +12,4 @@ dvc_gs
 
 # api
 fastapi
-http
 pillow
