@@ -3,7 +3,7 @@ from http import HTTPStatus
 from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
 import torch
 from PIL import Image
-from typing import List
+from typing import Dict, List, Any
 
 app = FastAPI()
 
@@ -20,7 +20,14 @@ model.to(device)
 gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
 
 
-def predict_step(images):  # Should be replaced with our own models prediction
+# Should be replaced with our own models prediction
+def predict_step(images: List[UploadFile]) -> List[str]:
+    '''
+    Input: Image
+    Output: str
+
+    Prediction function taking an image and returning a description of the image based on a transformer from huggingface
+    '''
     images_data = []
     for image_data in images:
         i_image = Image.open(image_data.file)
@@ -38,7 +45,16 @@ def predict_step(images):  # Should be replaced with our own models prediction
 
 
 @app.post("/cv_model/")
-async def cv_model(images: List[UploadFile] = File(...)):
+async def cv_model(images: List[Dict[str, Any]] = File(...)) -> Dict[str, Any]:
+    '''
+    Input: image in json format
+    Output: reponse { "input_images": [image.filename for image in images],
+        "predictions": predictions,
+        "message": HTTPStatus.OK.phrase,
+        "status-code": HTTPStatus.OK,}
+
+    Asynchronous post function for API calls. Returning a prediction on an image.
+    '''
     predictions = predict_step(images)
 
     response = {
