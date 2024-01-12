@@ -9,3 +9,7 @@ dvc
 dvc_gdrive
 hydra-core
 dvc_gs
+
+# api
+fastapi
+pillow
