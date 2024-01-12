@@ -76,10 +76,36 @@ a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for gett
 started with Machine Learning Operations (MLOps).
 
 
+## title {.tabset .tabset-fade}
+content above tabbed region.
 
+### tab Social-Media
 
+tab content Social-Media
 
-## Getting started
+### tab Contact
+
+tab content  Contact
+
+### tab Revisions
+
+tab content  Revisions
+
+### tab Articles
+
+tab content  Articles
+
+### tab Skills
+
+tab content  Skills
+
+### tab Insights
+
+tab content  Insights
+
+content below tabbed region
+
+## Getting started Locally
 1. First setup the virtual environment with
 ```make create_environment```
 
@@ -91,16 +117,28 @@ started with Machine Learning Operations (MLOps).
     For development purposes, you can install the requirements_dev.txt file with the following command:
     ```make dev_requirements```
 
-WARNING: If you want to use torch with an NVIDIA GPU, you need to use one of the following command depending on your CUDA version:
+    WARNING: If you want to use torch with an NVIDIA GPU, you need to use one of the following command depending on your CUDA version:
 
-for CUDA 11.8:
-    ```make requirements_gpu_cu118```
+    for CUDA 11.8:
+        ```make requirements_gpu_cu118```
 
-For CUDA 12.1:
-    ```make requirements_gpu_cu121```
+    For CUDA 12.1:
+        ```make requirements_gpu_cu121```
 
-4. Now you can run the code with the following command:
-    ```make ```
+4. Download data from gs_bucket through DVC:
+    ```make data```
+
+    Beaware, that you might have to authenticate your identity with a google account.
+
+5. Configure your hyperparameters with the train_model.yaml file in the config folder. 
+    Can be found at mnist_signlanguage/config/train_model.yaml
+
+6. Train the model on the data with:
+    ```make train```
+
+7. Make a prediction with: #Experimental feature not implemented fully yet
+    ```make prediction```
+
 
 ### Prerequisites
 
