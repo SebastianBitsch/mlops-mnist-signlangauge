@@ -18,3 +18,5 @@ google-cloud-secret-manager
 fastapi
 pillow
 
+#API REMOVE TRANSFORMERS WHEN OWN MODEL READY
+transformers
