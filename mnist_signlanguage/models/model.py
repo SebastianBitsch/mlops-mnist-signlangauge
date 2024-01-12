@@ -13,7 +13,7 @@ class Net(nn.Module):
         model (nn.Module): a PyTorch model
     """
 
-    def __init__(self, in_features: int = 1, n_classes: int = 24) -> None:
+    def __init__(self, in_features: int = 1, n_classes: int = 25) -> None:
         """
         A small network for doing classification   
         The architecture of the network is adapted from: https://www.kaggle.com/code/lightyagami26/mnist-sign-language-cnn-99-40-accuracy

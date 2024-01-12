@@ -119,6 +119,38 @@ started with Machine Learning Operations (MLOps).
 
 ### Docker setup
 
+You can either make use of the make commands for the simplicty or run them manually for more control
+
+#### Training
+1. Build
+    ```make docker_build_train```
+2. Run
+    ```make docker_run_train```
+
+1. Build
+    ```docker build -f dockerfiles/train_model.dockerfile . -t {imagename}:{imageversion}```
+
+    ```{imagename}``` is the name of your docker build image
+
+    ```{imageversion}``` is the version of that particular image
+
+    example:
+    ```docker build -f dockerfiles/train_model.dockerfile . -t trainer:latest```
+
+2. Run
+    ```docker run --name {containername} {imagename}:{imageversion}```
+
+    ```{containername}``` is the name of your docker container
+
+    ```{imagename}``` is the name of your docker build image
+
+    ```{imageversion}``` is the version of that particular image
+
+    example:
+    ```docker run --name experiment trainer:latest```
+
+
+
 ### Requirements
 
 
