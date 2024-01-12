@@ -9,3 +9,4 @@ dvc
 dvc_gdrive
 hydra-core
 dvc_gs
+google-cloud-secret-manager
