@@ -9,4 +9,12 @@ dvc
 dvc_gdrive
 hydra-core
 dvc_gs
+
+#Google
 google-cloud-secret-manager
+
+
+# api
+fastapi
+pillow
+
