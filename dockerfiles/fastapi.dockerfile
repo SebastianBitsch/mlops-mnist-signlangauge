@@ -19,5 +19,7 @@ WORKDIR /
 RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
+CMD exec uvicorn mnist_signlanguage.gcp_test_app:app --port 80 --host 0.0.0.0 --workers 1
 
-ENTRYPOINT ["uvicorn", "--reload", "--port 8000", "mnist_signlanguage/gcp_test_app.py", "hydra.job.chdir=False"]
+
+# docker run -p 80:80 gcp_test_app:latest
