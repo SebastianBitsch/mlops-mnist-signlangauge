@@ -101,7 +101,7 @@ def train(cfg) -> None:
             "validation_loss" : validation_loss / len(validation_dataloader)
         })
         # torch.save(model.state_dict(), f"models/model_{cfg.base.experiment_name}.pt") # saves locally
-        torch.save(model.state_dict(), f"/gcs/{cfg.data.gcp_bucket_name}/models/model_{cfg.base.experiment_name}.pt") # saves to gcp
+        torch.save(model.state_dict(), f"/gcs/{cfg.data_fetch.gcp_bucket_name}/models/model_{cfg.base.experiment_name}.pt") # saves to gcp
 
     logger.info("Done")
     wandb.finish()
