@@ -20,4 +20,4 @@ RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-
 RUN pip install . --no-deps --no-cache-dir
 
 
-ENTRYPOINT ["python", "-u", "mnist_signlanguage/gcp_test_app.py", "hydra.job.chdir=False"]
+ENTRYPOINT ["uvicorn", "--reload", "--port 8000", "mnist_signlanguage/gcp_test_app.py", "hydra.job.chdir=False"]

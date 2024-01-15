@@ -21,4 +21,5 @@ pillow
 
 #API REMOVE TRANSFORMERS WHEN OWN MODEL READY
 transformers
+uvicorn
 python-multipart
