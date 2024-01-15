@@ -9,3 +9,7 @@ dvc
 dvc_gdrive
 hydra-core
 dvc_gs
+python-dotenv
+fastapi
+uvicorn
+pydantic
