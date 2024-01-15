@@ -58,6 +58,7 @@ def train(cfg) -> None:
         model.train()
         for batch_idx, (images, labels) in enumerate(train_dataloader):
             images = images.unsqueeze(1)
+            images = torch.cat([images, images, images], dim=1) # convert to 3 channels (RGB
 
             optimizer.zero_grad()
 
