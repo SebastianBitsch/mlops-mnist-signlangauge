@@ -10,7 +10,7 @@ from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
 
 from models.model import Net
-from models.modelTIMM import Timm_Model
+from models.modelTIMM import get_timm
 
 @hydra.main(config_path="config", config_name="train_model.yaml",version_base='1.3')
 def train(cfg) -> None:
@@ -26,8 +26,7 @@ def train(cfg) -> None:
     DEVICE = torch.device(device_name)
 
     # import timm_model here
-    model = Timm_Model()
-    model.to(DEVICE)
+    model = get_timm().to(DEVICE)
 
 
     train_dataloader, validation_dataloader = fetch_dataloader(cfg.data_fetch, DEVICE)
@@ -58,6 +57,8 @@ def train(cfg) -> None:
         # Start training loop
         model.train()
         for batch_idx, (images, labels) in enumerate(train_dataloader):
+            images = images.unsqueeze(1)
+
             optimizer.zero_grad()
 
             # Forward pass, then backward pass, then update weights
