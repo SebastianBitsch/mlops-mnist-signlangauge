@@ -1,5 +1,6 @@
 import torch.nn as nn
 import torch
+import timm
 
 class Net(nn.Module):
     """
