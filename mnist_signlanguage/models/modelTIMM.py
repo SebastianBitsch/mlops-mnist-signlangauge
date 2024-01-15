@@ -7,8 +7,7 @@ class Timm_Model(nn.Module):
         super().__init__()
         self.model = timm.create_model(model_name, num_classes=num_classes, pretrained=pretrained)
         x = torch.randn(1, 3, 224, 224)
-
-        return x
+        return None
 
 
 
@@ -60,4 +59,5 @@ class Net(nn.Module):
         return x
     
 if __name__ == "__main__":
-    model = Net()
+    model = Timm_Model()
+    
