@@ -10,6 +10,7 @@ from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
 
 from models.model import Net
+from models.modelTIMM import Timm_Model
 
 @hydra.main(config_path="config", config_name="train_model.yaml",version_base='1.3')
 def train(cfg) -> None:
@@ -24,8 +25,12 @@ def train(cfg) -> None:
     device_name = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     DEVICE = torch.device(device_name)
 
-    model = Net().to(DEVICE)
-    
+    # import timm_model here
+    model = Timm_Model()
+
+    model.to(DEVICE)
+
+
     train_dataloader, validation_dataloader = fetch_dataloader(cfg.data_fetch, DEVICE)
     
     criterion = nn.CrossEntropyLoss()

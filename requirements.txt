@@ -3,6 +3,7 @@ wandb
 numpy
 pandas
 hydra-core
+timm
 
 # dvc
 dvc

@@ -18,8 +18,10 @@ data_fetch:
 # the model path
 model_params:
   dir: "models/"
+  
 
 # the hyperparameters for the model
 hyperparams:
   lr: 0.001
   epochs: 1
+
