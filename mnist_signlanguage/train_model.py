@@ -27,7 +27,6 @@ def train(cfg) -> None:
 
     # import timm_model here
     model = Timm_Model()
-
     model.to(DEVICE)
 
 

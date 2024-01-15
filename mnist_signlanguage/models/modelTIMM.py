@@ -2,12 +2,9 @@ import torch.nn as nn
 import torch
 import timm
 
-class Timm_Model(nn.Module):
-    def __init__(self, model_name: str = 'resnet34', num_classes: int = 25, pretrained: bool = True) -> None:
-        super().__init__()
-        self.model = timm.create_model(model_name, num_classes=num_classes, pretrained=pretrained)
-        x = torch.randn(1, 3, 224, 224)
-        return None
+model = timm.create_model(model_name, num_classes=num_classes, pretrained=pretrained)
+
+
 
 
 
@@ -60,4 +57,3 @@ class Net(nn.Module):
     
 if __name__ == "__main__":
     model = Timm_Model()
-    
