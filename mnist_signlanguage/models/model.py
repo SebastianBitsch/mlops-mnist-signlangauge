@@ -5,7 +5,7 @@ class Net(nn.Module):
     Simple CNN network for doing classification on 24 classes
     """
 
-    def __init__(self, in_features: int = 1, n_classes: int = 24):
+    def __init__(self, in_features: int = 1, n_classes: int = 25):
         """
         A small network for doing classification   
         The architecture of the network is adapted from: https://www.kaggle.com/code/lightyagami26/mnist-sign-language-cnn-99-40-accuracy
