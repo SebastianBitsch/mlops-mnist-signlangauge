@@ -3,8 +3,7 @@ from http import HTTPStatus
 from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
 import torch
 from PIL import Image
-
-
+from typing import List
 
 
 # Build app
@@ -27,7 +26,7 @@ gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
 
 
 # Should be replaced with our own models prediction
-def predict_step(images: list[UploadFile]) -> list[str]:
+def predict_step(images):
     '''
     Given a list of images, return a list of predictions from a model
 
@@ -55,7 +54,7 @@ def predict_step(images: list[UploadFile]) -> list[str]:
 
 
 @app.post("/cv_model/")
-async def cv_model(images: list[dict[str, any]] = File(...)) -> dict[str, any]:
+async def cv_model(images: List[UploadFile] = File(...)):
     '''
     Input: image in json format
     Output: reponse { "input_images": [image.filename for image in images],
