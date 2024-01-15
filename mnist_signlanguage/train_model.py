@@ -85,7 +85,9 @@ def train(cfg) -> None:
             correct_predictions = 0
             total_samples = 0
             for batch_idx, (images, labels) in enumerate(validation_dataloader):                
-                
+                images = images.unsqueeze(1)
+                images = torch.cat([images, images, images], dim=1) # convert to 3 channels (RGB
+
                 preds = model(images)
                 
                 loss = criterion(preds, labels)
