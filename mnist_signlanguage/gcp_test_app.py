@@ -3,7 +3,6 @@ from http import HTTPStatus
 from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
 import torch
 from PIL import Image
-from typing import List
 
 
 # Build app
@@ -54,7 +53,7 @@ def predict_step(images):
 
 
 @app.post("/cv_model/")
-async def cv_model(images: List[UploadFile] = File(...)):
+async def cv_model(images: list[UploadFile] = File(...)):
     '''
     Input: image in json format
     Output: reponse { "input_images": [image.filename for image in images],
