@@ -14,4 +14,4 @@ def predict(
         Tensor of shape [N, d] where N is the number of samples and d is the output dimension of the model
 
     """
-    return torch.cat([model(batch) for batch in dataloader], 0)
+    return torch.cat([model(images) for (images, _labels) in dataloader], 0)
