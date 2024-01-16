@@ -1,11 +1,12 @@
 base:
   experiment_name: default-model
-  seed: 42
+  seed: 42         # TODO: we are not using this
   device: "cuda"
   log_interval: 50
+  wandb_mode: online # online, disabled, offline 
 
 data_fetch:
-  gcp_bucket_name: gs://my-bucket-sbb/
+  gcp_bucket_name: my-bucket-sbb
   dir: "data/processed"
   # the data paths
   train_data_path: "data/processed/train/train_images.pt"
@@ -23,5 +24,4 @@ model_params:
 # the hyperparameters for the model
 hyperparams:
   lr: 0.001
-  epochs: 1
-
+  epochs: 5

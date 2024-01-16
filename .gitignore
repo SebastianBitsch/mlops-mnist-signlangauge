@@ -183,3 +183,6 @@ data/
 
 outputs/
 wandb/
+
+*.pt
+vertexai_config.yaml

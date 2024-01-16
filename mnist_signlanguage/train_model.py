@@ -5,6 +5,8 @@ import hydra
 import wandb
 import logging
 import sys
+import os
+from dotenv import load_dotenv
 
 from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
@@ -30,13 +32,15 @@ def train(cfg) -> None:
 
 
     train_dataloader, validation_dataloader = fetch_dataloader(cfg.data_fetch, DEVICE)
-    
+    logger.info(f"Fetched data: (Train: {len(train_dataloader)}, Val: {len(validation_dataloader)})")
     criterion = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=cfg.hyperparams.lr)
 
-    wandb.login()
+    # only needs to be called for local development
+    load_dotenv()
+    wandb.login(key=os.getenv("WANDB_API_KEY"))
     wandb.init(
-        project = "mlops-mnist-sign-language",
+        project = f"mlops-mnist-sign-language-{cfg.base.experiment_name}",
         entity = "mlops-mnist",
         config = {
             "learning_rate": cfg.hyperparams.lr,
@@ -45,7 +49,7 @@ def train(cfg) -> None:
             "architecture": "CNN",
             "dataset": "American-Sign-Language-MNIST",
         },
-        # mode="disabled" # disable wandb when debugging
+        mode=cfg.base.wandb_mode
     )
 
     logger.info("Start training")
@@ -64,7 +68,7 @@ def train(cfg) -> None:
 
             # Forward pass, then backward pass, then update weights
             preds = model(images)
-            
+
             loss = criterion(preds, labels)
             loss.backward()
             running_train_loss += loss.item()
@@ -105,11 +109,15 @@ def train(cfg) -> None:
             "validation_loss" : validation_loss / len(validation_dataloader)
         })
 
+        # Check if bucket is mounted to image
+        if os.path.isdir(f"/gcs/{cfg.data_fetch.gcp_bucket_name}"):
+            torch.save(model.state_dict(), f"/gcs/{cfg.data_fetch.gcp_bucket_name}/models/model_{cfg.base.experiment_name}.pt") # saves to gcp
+        # Saves when working locally, not in a container
+        elif os.path.isdir("models/"): 
+            torch.save(model.state_dict(), f"models/model_{cfg.base.experiment_name}.pt")
+
     logger.info("Done")
     wandb.finish()
 
 if __name__ == '__main__':
     train()
-
-
-    

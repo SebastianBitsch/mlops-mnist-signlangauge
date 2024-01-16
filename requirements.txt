@@ -11,15 +11,11 @@ dvc_gdrive
 hydra-core
 dvc_gs
 
-#Google
-google-cloud-secret-manager
-
-
-# api
+python-dotenv
 fastapi
+uvicorn
+pydantic
 pillow
 
-#API REMOVE TRANSFORMERS WHEN OWN MODEL READY
 transformers
-uvicorn
 python-multipart
