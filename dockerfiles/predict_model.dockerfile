@@ -6,15 +6,17 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+
 # copy the files from the local directory to the docker image
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY mnist_signlanguage/ mnist_signlanguage/
-COPY data/ data/
+COPY models/ models/
+
 
 WORKDIR /
-# install the dependencies
-RUN pip install -r requirements.txt --no-cache-dir
+# install the dependencies 
+RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "mnist_signlanguage/predict_model.py"]
+CMD exec uvicorn mnist_signlanguage.predict_api:app --port 80 --host 0.0.0.0 --workers 1
