@@ -3,6 +3,7 @@ wandb
 numpy
 pandas
 hydra-core
+timm
 
 # dvc
 dvc
@@ -20,3 +21,5 @@ pillow
 
 #API REMOVE TRANSFORMERS WHEN OWN MODEL READY
 transformers
+uvicorn
+python-multipart
