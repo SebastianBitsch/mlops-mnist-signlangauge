@@ -8,12 +8,10 @@ RUN apt update && \
 
 
 # copy the files from the local directory to the docker image
-COPY Makefile Makefile
-# it is essential to have the data.dvc file in the docker image
-COPY data.dvc data.dvc  
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY mnist_signlanguage/ mnist_signlanguage/
+COPY models/ models/
 
 
 WORKDIR /
@@ -21,12 +19,6 @@ WORKDIR /
 RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
-# setup dvc
-RUN dvc init --no-scm
-RUN dvc remote add -d remote_storage gs://my-bucket-sbb/
-RUN dvc remote modify remote_storage version_aware true
+CMD exec uvicorn mnist_signlanguage.gcp_test_app:app --port 80 --host 0.0.0.0 --workers 1
 
-# download and process the data
-RUN make data
-
-ENTRYPOINT ["python", "-u", "mnist_signlanguage/train_model.py", "hydra.job.chdir=False"]
+# docker run -p 80:80 gcp_test_app:latest
