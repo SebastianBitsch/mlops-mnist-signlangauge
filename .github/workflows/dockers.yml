@@ -27,3 +27,32 @@ jobs:
             --build-arg WANDB_API_KEY=${{ secrets.WANDB_API_KEY }} \
             --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
           docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+  deploy:
+    needs: build
+    steps:
+      # Build the container image
+      - name: 'gcr.io/cloud-builders/docker'
+        args: ['build', '-t', 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest', '.'] 
+      # Push the container image to Container Registry
+      - name: 'gcr.io/cloud-builders/docker'
+        args: ['push', 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest']
+      # Deploy container image to Cloud Run
+      - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+        entrypoint: gcloud
+        args:
+        - 'run'
+        - 'deploy'
+        - 'gcppredictapp'
+        - '--image'
+        - 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest'
+        - '--region'
+        - 'europe-north1'
+        - '--platform'
+        - 'managed'
+        - '--allow-unauthenticated'
+        - '--port'
+        - '80'
+        - '--cpu'
+        - '2'
+        - '--memory'
+        - '8Gi'
