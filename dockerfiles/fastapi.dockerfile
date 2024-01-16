@@ -21,5 +21,4 @@ RUN pip install . --no-deps --no-cache-dir
 
 CMD exec uvicorn mnist_signlanguage.gcp_test_app:app --port 80 --host 0.0.0.0 --workers 1
 
-
 # docker run -p 80:80 gcp_test_app:latest
