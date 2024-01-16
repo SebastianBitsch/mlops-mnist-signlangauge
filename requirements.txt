@@ -1,15 +1,21 @@
-torch >= 2.1.0
+torch
 wandb
 numpy
 pandas
 hydra-core
+timm
 
 # dvc
 dvc
 dvc_gdrive
 hydra-core
 dvc_gs
+
 python-dotenv
 fastapi
 uvicorn
 pydantic
+pillow
+
+transformers
+python-multipart

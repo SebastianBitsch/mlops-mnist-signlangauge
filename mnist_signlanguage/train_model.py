@@ -12,6 +12,7 @@ from torch.optim import Adam
 from data.make_dataset import fetch_dataloader
 
 from models.model import Net
+from models.modelTIMM import get_timm
 
 @hydra.main(config_path="config", config_name="train_model.yaml",version_base='1.3')
 def train(cfg) -> None:
@@ -26,8 +27,10 @@ def train(cfg) -> None:
     device_name = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     DEVICE = torch.device(device_name)
 
-    model = Net().to(DEVICE)
-    
+    # import timm_model here
+    model = get_timm().to(DEVICE)
+
+
     train_dataloader, validation_dataloader = fetch_dataloader(cfg.data_fetch, DEVICE)
     logger.info(f"Fetched data: (Train: {len(train_dataloader)}, Val: {len(validation_dataloader)})")
     criterion = nn.CrossEntropyLoss()
@@ -58,6 +61,9 @@ def train(cfg) -> None:
         # Start training loop
         model.train()
         for batch_idx, (images, labels) in enumerate(train_dataloader):
+            images = images.unsqueeze(1)
+            images = torch.cat([images, images, images], dim=1) # convert to 3 channels (RGB
+
             optimizer.zero_grad()
 
             # Forward pass, then backward pass, then update weights
@@ -83,7 +89,9 @@ def train(cfg) -> None:
             correct_predictions = 0
             total_samples = 0
             for batch_idx, (images, labels) in enumerate(validation_dataloader):                
-                
+                images = images.unsqueeze(1)
+                images = torch.cat([images, images, images], dim=1) # convert to 3 channels (RGB
+
                 preds = model(images)
                 
                 loss = criterion(preds, labels)
