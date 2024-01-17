@@ -174,7 +174,7 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+--- We did not make any rules for code quality and format. These would have been a good idea for a bigger project because it will ensure that the code was consistent, readable and maintainable. This would make it easier for others to understand the code and therefore reduce bugs and other issues. ---
 
 ## Version control
 
