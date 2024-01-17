@@ -3,7 +3,6 @@ import io
 import os
 
 import torch
-from hydra import initialize, compose
 
 from torch.utils.data import DataLoader, Dataset
 from fastapi import FastAPI, File, UploadFile
@@ -24,19 +23,17 @@ class DummyDataset(Dataset):
             transforms.Resize(28), # 28 is too small for single images. idk why 33 is min
             transforms.Grayscale(num_output_channels=3),
             transforms.ToTensor(),
+            lambda x: x * 255      # scale to range 0-255 - images outputted from grayscale are in range 0-1
         ])
 
     def __getitem__(self, idx):
-        return (self.transform(self.images[idx]), 0)
+        return (self.transform(self.images[idx]), 0) # label is not used for prediction
 
     def __len__(self):
         return len(self.images)
 
 @app.post("/predict/")
 async def predict_images(images_files: list[UploadFile] = File(...)):
-
-    with initialize(config_path="config", job_name="predict", version_base='1.3'):
-        cfg = compose(config_name="train_model")
 
     start_time = datetime.datetime.now()
 
@@ -47,12 +44,14 @@ async def predict_images(images_files: list[UploadFile] = File(...)):
     dataloader = DataLoader(dataset, batch_size=1, num_workers=0)
 
     model = get_timm()
-    if os.path.isdir(f"/gcs/{cfg.data_fetch.gcp_bucket_name}"):
+    if os.path.isdir(f"/gcs"):
         print("Loading weights for model for GS Bucket")
-        model.load_state_dict(torch.load(f"/gcs/{cfg.data_fetch.gcp_bucket_name}/model_default-model.pt"))
-    elif os.path.isdir(f"/models/model_default-model.pt"):
+        model.load_state_dict(torch.load(f"/gcs/models/model_default-model.pt"))
+    elif os.path.isdir("models"):
         print("Loading weights for model from local file")
-        model.load_state_dict(torch.load(f"/gcs/{cfg.data_fetch.gcp_bucket_name}/model_default-model.pt"))
+        model.load_state_dict(torch.load(f"models/model_default-model.pt"))
+    else:
+        print("Error: Failed to load weights, using untrained network - results will be poor")
     
     model.eval()
 
