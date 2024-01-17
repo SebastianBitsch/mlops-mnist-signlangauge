@@ -1,7 +1,7 @@
 # Automatic building and push to Docker github repository. And testing if it works
 # It is only testing on linux and python 3.10
 
-name: "Docker Image CI"
+name: "Train Docker Image CI"
 
 on:
   push:
