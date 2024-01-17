@@ -10,4 +10,4 @@ def test_model():
 
     out = model(x)
     assert out.shape == (16, n_classes)
-    
+
