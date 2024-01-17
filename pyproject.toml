@@ -7,7 +7,10 @@ name = "mnist_signlanguage"
 version = "0.0.1"
 description = "A mlops pipeline for doing classification of american sign language letters"
 authors = [
-  { name = "group 52", email = "your@email.com" },
+  { name = "Katja (s214632)", email = "katjaeriksen@gmail.com" },
+  { name = "Sebastian (s204163)", email = "sebastianhbitsch@gmail.com" }
+  { name = "Simon (s204157)", email = "simonpontoppidan11@gmail.com" }
+  { name = "Markus (s204115)", email = "fugleboefstudies@gmail.com" }
 ]
 license = { file = "LICENSE" }
 readme = "README.md"
