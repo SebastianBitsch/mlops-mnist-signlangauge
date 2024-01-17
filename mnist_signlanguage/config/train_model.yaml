@@ -4,6 +4,7 @@ base:
   device: "cuda"
   log_interval: 50
   wandb_mode: online # online, disabled, offline 
+  logging_toggle: True
 
 data_fetch:
   gcp_bucket_name: my-bucket-sbb
