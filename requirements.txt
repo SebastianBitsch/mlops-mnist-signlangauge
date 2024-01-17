@@ -20,4 +20,4 @@ pillow
 transformers
 python-multipart
 
-dotenv
+python-dotenv
