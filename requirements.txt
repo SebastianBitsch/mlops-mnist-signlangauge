@@ -19,5 +19,3 @@ pillow
 
 transformers
 python-multipart
-
-python-dotenv
