@@ -27,6 +27,8 @@ jobs:
             --build-arg WANDB_API_KEY=${{ secrets.WANDB_API_KEY }} \
             --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
           docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+  clouddeploy:
+    needs: build
     steps:
       # Build the container image
       - name: 'gcr.io/cloud-builders/docker'
