@@ -23,3 +23,4 @@ dvc
 dvc_gs
 dvc_gdrive
 hydra-core
+coverage
