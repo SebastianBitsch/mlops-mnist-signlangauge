@@ -28,8 +28,10 @@ jobs:
             --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
           docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
   clouddeploy:
+    runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v2
       # Build the container image
       - name: 'gcr.io/cloud-builders/docker'
         args: ['build', '-t', 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest', '.'] 
