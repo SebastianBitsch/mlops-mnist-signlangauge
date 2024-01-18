@@ -1,10 +1,11 @@
 name: Continuous Deployment
 
 on:
-  push:
-    branches:
-      - main
-
+    push:
+      branches: [ master ]
+    pull_request:
+      branches: [ master ]
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -36,42 +37,3 @@ jobs:
             --cpu 2 \
             --memory 8Gi \
             --allow-unauthenticated
-            
-# name: "Deploy Container"
-
-# on:
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
-
-# jobs:
-#   clouddeploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       # Build the container image
-#       - name: 'gcr.io/cloud-builders/docker'
-#         args: ['build', '-t', 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest', '.'] 
-#       # Push the container image to Container Registry
-#       - name: 'gcr.io/cloud-builders/docker'
-#         args: ['push', 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest']
-#       # Deploy container image to Cloud Run
-#       - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#         entrypoint: gcloud
-#         args:
-#         - 'run'
-#         - 'deploy'
-#         - 'run'
-#         - '--image'
-#         - 'gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest'
-#         - '--region'
-#         - 'europe-north1'
-#         - '--platform'
-#         - 'managed'
-#         - '--port'
-#         - '80'
-#         - '--cpu'
-#         - '2'
-#         - '--memory'
-#         - '8Gi'
-#         - '--allow-unauthenticated'
