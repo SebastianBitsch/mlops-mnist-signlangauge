@@ -23,14 +23,14 @@ jobs:
 
       - name: Build and Push to Container Registry
         run: |
-          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest
-          gcloud auth configure-docker
-          docker push gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest
+          docker build -f dockerfiles/train_model.dockerfile . -t gcptrainapp:latest
+          docker tag gcptrainapp gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcptrainapp
+          docker push gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcptrainapp
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy run \
-            --image gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcppredictapp:latest \
+            --image gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcptrainapp:latest \
             --region europe-north1 \
             --platform managed \
             --port 80 \
