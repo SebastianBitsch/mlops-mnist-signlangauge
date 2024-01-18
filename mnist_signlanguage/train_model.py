@@ -7,7 +7,6 @@ import logging
 import sys
 import os
 import functools
-import torcheval.metrics as torch_metrics
 from dotenv import load_dotenv
 
 from torch.optim import Adam
