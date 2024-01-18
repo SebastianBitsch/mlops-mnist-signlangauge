@@ -2,9 +2,9 @@ name: Continuous Deployment
 
 on:
     push:
-      branches: [ master ]
+        branches: [ master ]
     pull_request:
-      branches: [ master ]
+        branches: [ master ]
   
 jobs:
   deploy:
@@ -12,19 +12,29 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
+      - name: Authenticate CLI
+        uses: google-github-actions/auth@v2
+        with:
+            project_id: ${{ secrets.GCP_PROJECT_NAME }}
+            credentials_json: ${{secrets.GCP_SERVICE_ACCOUNT_KEY }}
+  
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@main
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_NAME }}
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          export_default_credentials: true
 
-      - name: Build and Push to Container Registry
+      - name: Build Container
         run: |
           docker build -f dockerfiles/train_model.dockerfile . -t gcptrainapp:latest
+        
+      - name: Tag Container
+        run: |
           docker tag gcptrainapp gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcptrainapp
+    
+      - name: Push Container
+        run: |
           docker push gcr.io/${{ secrets.GCP_PROJECT_NAME }}/gcptrainapp
 
       - name: Deploy to Cloud Run
