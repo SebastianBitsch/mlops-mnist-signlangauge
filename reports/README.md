@@ -260,7 +260,11 @@ Make data: calls “make download_data” and “make_data.py” in order to obt
 >
 > Answer:
 
---- We have 3 workflows, one for unittesting, that runs all our tests on the mac, windows and linux operating systems ensuring the ability to locally run the training loop. The other two workflows are building docker containers to verify the builds, one for the training container, that handles the training of a model and the other for hosting a fastapi to run inference on the trained model. We have deemed no need for linting but instead coding guidelines agreed throughout the group of minimum code documentation requirements ---
+--- We have 3 workflows, one for unittesting, that runs all our tests on the mac, windows and linux operating systems ensuring the ability to locally run the training loop. The other two workflows are building docker containers to verify the builds, one for the training container, that handles the training of a model and the other for hosting a fastapi to run inference on the trained model. We have deemed no need for linting but instead coding guidelines agreed throughout the group of minimum code documentation requirements.
+
+An example of a workflow that is triggered on push and pull on the master branch can be seen here, that builds the docker container for training a model:
+ <https://github.com/SebastianBitsch/mlops-mnist-signlanguage/blob/master/.github/workflows/docker_build_train.yml> ---
+
 
 ## Running code and tracking experiments
 
