@@ -108,8 +108,7 @@ started with Machine Learning Operations (MLOps).
 6. Train the model on the data with:
     ```make train```
 
-7. Make a prediction with: #Experimental feature not implemented fully yet
-    ```make prediction```
+
 
 
 ### Prerequisites
@@ -150,7 +149,5 @@ You can either make use of the make commands for the simplicty or run them manua
     ```docker run --name experiment trainer:latest```
 
 
-
-### Requirements
 
 

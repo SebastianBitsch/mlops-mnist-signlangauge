@@ -8,4 +8,9 @@ def test_log_message():
     pass
 
 def test_with_default_logging():
-    pass
+    @with_default_logging(None)
+    def foo(a, b):
+        return ([a, b]), (None, None)
+    
+    assert foo(1, 2) == [1, 2] 
+    
