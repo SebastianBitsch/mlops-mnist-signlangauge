@@ -19,3 +19,4 @@ pillow
 
 transformers
 python-multipart
+scikit-learn

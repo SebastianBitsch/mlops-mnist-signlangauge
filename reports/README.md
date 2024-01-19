@@ -199,7 +199,7 @@ Make data: calls “make download_data” and “make_data.py” in order to obt
 >
 > Answer:
 
---- In total we have implemented 3 major test files with the primary focus on testing and verifying the local flow of training the model. So that we atleast can guarantee that there should be no errors trying to process the dataset, instantiating the training environment and using all utility functions. The biggest challenge is managing the tests, since we have a lot of API calls, such as wandb, logging and gcp that we don’t quite know how to handle and build tests for. ---
+--- In total we have implemented 3 major test files with the primary focus on testing and verifying the local flow of training the model. So that we atleast can guarantee that there should be no errors trying to process the dataset, instantiating the training environment and using all utility functions. The biggest challenge is managing the tests, since we have a lot of API calls, such as wandb, logging and gcp that we don’t quite know how to handle and build tests for. We also do test on all utility functions. ---
 
 ### Question 8
 
@@ -214,10 +214,7 @@ Make data: calls “make download_data” and “make_data.py” in order to obt
 >
 > Answer:
 
---- The total code coverage code is 27%, which includes all of our source code. We are far from the 100% coverage of our code. Even if we had tests that covered all of our code we could not guarantee:
-	Complete test scenarios: Achieving 100% code coverage does not equal testing of all possible outcomes or faults in the code. 
-	Quality of tests: In the same vein, we can not guarantee the quality of our tests. They may cover an issue in the code but only to a certain extent. The tests may be flawed and could not reveal potential issues.
- ---
+--- The total code coverage of the code is 87%, which includes all our source code. It is hard to achieve 100% code coverage due to the complexity and abstractions a lot of the frameworks introduces. It is quite the challenge to figure out how to handle tests upon things like authentication steps. We found it difficult to make tests with quality without spending too much time, it is easy to assert the shape and types of the returns, but it takes real effort to make the proper dummy tests verifying the calculations behind the neural network steps. ---
 
 ### Question 9
 
@@ -263,7 +260,11 @@ Make data: calls “make download_data” and “make_data.py” in order to obt
 >
 > Answer:
 
---- We have 3 workflows, one for unittesting, that runs all our tests on the mac, windows and linux operating systems ensuring the ability to locally run the training loop. The other two workflows are building docker containers to verify the builds, one for the training container, that handles the training of a model and the other for hosting a fastapi to run inference on the trained model. We have deemed no need for linting but instead coding guidelines agreed throughout the group of minimum code documentation requirements ---
+--- We have 3 workflows, one for unittesting, that runs all our tests on the mac, windows and linux operating systems ensuring the ability to locally run the training loop. The other two workflows are building docker containers to verify the builds, one for the training container, that handles the training of a model and the other for hosting a fastapi to run inference on the trained model. We have deemed no need for linting but instead coding guidelines agreed throughout the group of minimum code documentation requirements.
+
+An example of a workflow that is triggered on push and pull on the master branch can be seen here, that builds the docker container for training a model:
+ <https://github.com/SebastianBitsch/mlops-mnist-signlanguage/blob/master/.github/workflows/docker_build_train.yml> ---
+
 
 ## Running code and tracking experiments
 
